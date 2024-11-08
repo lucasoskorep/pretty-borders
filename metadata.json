@@ -1,0 +1,8 @@
+{
+  "name": "pretty-borders",
+  "description": "Adds pretty borders to the active and inactive windows",
+  "uuid": "prettyborders@lucaso.io",
+  "shell-version": [
+    "47"
+  ]
+}
