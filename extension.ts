@@ -1,11 +1,21 @@
+import Meta from '@girs/meta-15';
 import St from 'gi://St';
 
-import {Extension} from 'resource:///org/gnome/shell/extensions/extension.js';
+import {Extension, ExtensionMetadata} from 'resource:///org/gnome/shell/extensions/extension.js';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import giCairo from "@girs/gjs/cairo";
+import Content = giCairo.Content;
+import {LayoutManager} from "@girs/gnome-shell/ui/layout";
 
 
 export default class ActiveBorderExtension extends Extension {
-    constructor(metadata) {
+
+    borderActor: Widget<LayoutManager, Content> | null;
+    focusWindowSignals: any[];
+    lastFocusedWindow: Meta.Window | null;
+    _focusSignal: number | null;
+
+    constructor(metadata: ExtensionMetadata) {
         super(metadata);
         // Initialize instance variables
         this.borderActor = null;
@@ -25,7 +35,7 @@ export default class ActiveBorderExtension extends Extension {
 
     }
 
-    _updateBorder(window) {
+    _updateBorder(window: Meta.Window) {
         console.log("UPDATING THE BORDER")
         // Clear the previous border if there's a last focused window
         // if (this.lastFocusedWindow) {
@@ -39,7 +49,7 @@ export default class ActiveBorderExtension extends Extension {
         }
     }
 
-    _setBorder(window) {
+    _setBorder(window: Meta.Window) {
         console.log("SETTING THE BORDER")
         if (!window) return;
 
@@ -61,16 +71,16 @@ export default class ActiveBorderExtension extends Extension {
         Main.layoutManager.uiGroup.add_child(this.borderActor);
 
         // Listen to window's changes in position and size
-        this.focusWindowSignals.push(window.connect('position-changed', () => this._updateBorderPosition(window)));
-        this.focusWindowSignals.push(window.connect('size-changed', () => this._updateBorderPosition(window)));
-        this.focusWindowSignals.push(window.connect('unmanaged', () => this._clearBorder()));
+        this.focusWindowSignals?.push(window.connect('position-changed', () => this._updateBorderPosition(window)));
+        this.focusWindowSignals?.push(window.connect('size-changed', () => this._updateBorderPosition(window)));
+        this.focusWindowSignals?.push(window.connect('unmanaged', () => this._clearBorder()));
 
         this._updateBorderPosition(window);
         // Add the effect to the window
         // actor.add_effect_with_name('bor/der-effect', borderEffect);
     }
 
-    _updateBorderPosition(window) {
+    _updateBorderPosition(window: Meta.Window) {
         if (!this.borderActor || !window) return;
 
         const rect = window.get_frame_rect();
@@ -89,7 +99,7 @@ export default class ActiveBorderExtension extends Extension {
         // Disconnect any signals connected to the window
         if (this.lastFocusedWindow && this.focusWindowSignals.length > 0) {
             this.focusWindowSignals.forEach(signal => {
-                this.lastFocusedWindow.disconnect(signal);
+                this.lastFocusedWindow?.disconnect(signal);
             });
             this.focusWindowSignals = [];
         }
