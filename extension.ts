@@ -59,12 +59,14 @@ export default class ActiveBorderExtension extends Extension {
             name: 'active-window-border',
             style_class: 'active-window-border',
             reactive: false,
-            x: rect.x - 4, // Adjust for border width
-            y: rect.y - 4,
-            width: rect.width + 8,
-            height: rect.height + 8,
+            x: rect.x - 2, // Adjust for border width
+            y: rect.y - 2,
+            width: rect.width + 2,
+            height: rect.height + 2,
         });
-
+        // this.borderActor = new St.BorderImage({
+        //
+        // })
         // Add the border actor to the UI group
         Main.layoutManager.uiGroup.add_child(this.borderActor);
 
@@ -84,8 +86,8 @@ export default class ActiveBorderExtension extends Extension {
         const rect = window.get_frame_rect();
         if (!rect) return;
 
-        this.borderActor.set_position(rect.x - 4, rect.y - 4);
-        this.borderActor.set_size(rect.width + 8, rect.height + 8);
+        this.borderActor.set_position(rect.x - 2, rect.y - 2);
+        this.borderActor.set_size(rect.width + 2, rect.height + 2);
     }
 
     _clearBorder() {
