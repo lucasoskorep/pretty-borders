@@ -1,5 +1,5 @@
-NAME=my-extension
-DOMAIN=example.com
+NAME=prettyborders
+DOMAIN=lucaso.io
 
 .PHONY: all pack install clean
 
