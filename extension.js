@@ -13,6 +13,7 @@ export default class ActiveBorderExtension extends Extension {
         this.lastFocusedWindow = null;
         this._focusSignal = null;
     }
+
     enable() {
         console.log("STARTING PRETTY BORDERS!")
         // Connect to the focus window signal to track the active window
@@ -107,60 +108,3 @@ export default class ActiveBorderExtension extends Extension {
     }
 
 }
-
-// class ActiveBorderExtension extends Extension {
-//     constructor(metadata) {
-//         super(metadata);
-//     }
-//
-//     enable() {
-//         // Connect to the focus window signal to track the active window
-//         this._focusSignal = global.display.connect('notify::focus-window', () => {
-//             this._updateBorder(global.display.focus_window);
-//         });
-//
-//         // Set initial border on the current window, if there is one
-//         this._updateBorder(global.display.focus_window);
-//     }
-//
-//     disable() {
-//         // Disconnect the signal and remove any existing borders
-//         if (this._focusSignal) {
-//             global.display.disconnect(this._focusSignal);
-//             this._focusSignal = null;
-//         }
-//
-//         // Clear the border on the last focused window if it exists
-//         if (lastFocusedWindow) {
-//             this._clearBorder(lastFocusedWindow);
-//             lastFocusedWindow = null;
-//         }
-//     }
-//
-//     _updateBorder(window) {
-//         // Clear the previous border if there's a last focused window
-//         if (lastFocusedWindow) {
-//             this._clearBorder(lastFocusedWindow);
-//         }
-//
-//         // Set a new border for the currently focused window
-//         if (window) {
-//             this._setBorder(window);
-//             lastFocusedWindow = window;
-//         }
-//     }
-//
-//     _setBorder(window) {
-//         if (!window || !window.get_compositor_private()) return;
-//         window.get_compositor_private().set_style(`
-//             border: 4px solid rgba(0, 150, 255, 0.8);
-//             border-radius: 5px;
-//         `);
-//     }
-//
-//     _clearBorder(window) {
-//         if (!window || !window.get_compositor_private()) return;
-//         window.get_compositor_private().set_style("");
-//     }
-// }
-
