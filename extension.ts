@@ -1,16 +1,14 @@
-import Meta from '@girs/meta-15';
+import GLib from 'gi://GLib';
+import Gio from 'gi://Gio';
 import St from 'gi://St';
-
-import {Extension, ExtensionMetadata} from 'resource:///org/gnome/shell/extensions/extension.js';
+import Meta from 'gi://Meta';
+import Shell from 'gi://Shell';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
-import giCairo from "@girs/gjs/cairo";
-import Content = giCairo.Content;
-import {LayoutManager} from "@girs/gnome-shell/ui/layout";
-
+import { Extension, ExtensionMetadata } from 'resource:///org/gnome/shell/extensions/extension.js';
 
 export default class ActiveBorderExtension extends Extension {
 
-    borderActor: Widget<LayoutManager, Content> | null;
+    borderActor: St.Widget | null;
     focusWindowSignals: any[];
     lastFocusedWindow: Meta.Window | null;
     _focusSignal: number | null;
@@ -106,6 +104,7 @@ export default class ActiveBorderExtension extends Extension {
     }
 
     disable() {
+        console.log("DISABLED PRETTY BORDERS!")
         // Disconnect the signal and remove any existing borders
         if (this._focusSignal) {
             global.display.disconnect(this._focusSignal);
