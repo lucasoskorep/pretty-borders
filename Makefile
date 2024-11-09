@@ -6,7 +6,7 @@ DOMAIN=lucaso.io
 all: dist/extension.js
 
 node_modules: package.json
-	npm install
+	pnpm install
 
 dist/extension.js dist/prefs.js: node_modules
 	tsc
@@ -16,7 +16,7 @@ schemas/gschemas.compiled: schemas/org.gnome.shell.extensions.$(NAME).gschema.xm
 
 #
 $(NAME).zip: dist/extension.js dist/prefs.js schemas/gschemas.compiled
-	#@cp -r schemas dist/
+	@cp -r schemas dist/
 	@cp metadata.json dist/
 	@cp stylesheet.css dist/
 	@(cd dist && zip ../$(NAME).zip -9r .)
@@ -31,7 +31,6 @@ install: $(NAME).zip
 
 clean:
 	@rm -rf dist node_modules $(NAME).zip
-
 
 test:
 	@dbus-run-session -- gnome-shell --nested --wayland

@@ -2,6 +2,7 @@ import GLib from 'gi://GLib';
 import Gio from 'gi://Gio';
 import St from 'gi://St';
 import Meta from 'gi://Meta';
+import cairo from "cairo";
 import Shell from 'gi://Shell';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import {Extension, ExtensionMetadata} from 'resource:///org/gnome/shell/extensions/extension.js';
@@ -29,7 +30,7 @@ export default class ActiveBorderExtension extends Extension {
 
         // Initialize color.ts cycling variables
         this.colorTimeoutId = null;
-        this.currentColor = new HSLColor(0, 1, .5); // Starting hue value
+        this.currentColor = new HSLColor(0, 1, .3); // Starting hue value
     }
 
     enable() {
@@ -38,16 +39,7 @@ export default class ActiveBorderExtension extends Extension {
         this._focusSignal = global.display.connect('notify::focus-window', () => {
             console.log("Focus Changed")
             this._updateBorder(global.display.focus_window);
-        });
-        // Connect to the "showing" signal for when the overview is opened
-
-        // let grab_begin = global.display.connect("grab-op-begin", () => {
-        //     console.log("Grab Started")
-        // })
-        // let grab_end = global.display.connect("grab-op-end", () => {
-        //     console.log("Grab Ended")
-        // })
-
+        })
         // Set initial border on the current window, if there is one
         this._updateBorder(global.display.focus_window);
     }
@@ -81,7 +73,7 @@ export default class ActiveBorderExtension extends Extension {
             height: rect.height + 4,
             // Initial style with default color.ts
             // style: `border: 4px solid hsl(${this.hue}, 100%, 50%); border-radius: 5px;`,
-            style: `border: 2px solid rgba(0, 0, 0, 0.8); border-radius: 3px;`
+            // style: `border: 2px solid rgba(0, 0, 0, 0.5); border-radius: 3px;`
         });
 
         // Add the border actor to the UI group
@@ -106,7 +98,7 @@ export default class ActiveBorderExtension extends Extension {
         if (!rect) return;
 
         this.borderActor.set_position(rect.x - 2, rect.y - 2);
-        this.borderActor.set_size(rect.width + 4, rect.height + 4);
+        this.borderActor.set_size(rect.width + 2, rect.height + 2);
     }
 
     _clearBorder() {
@@ -127,18 +119,6 @@ export default class ActiveBorderExtension extends Extension {
         }
     }
 
-    disable() {
-        console.log("DISABLED PRETTY BORDERS!")
-        // Disconnect the focus signal and remove any existing borders
-        if (this._focusSignal) {
-            global.display.disconnect(this._focusSignal);
-            this._focusSignal = null;
-        }
-
-        // Clear the border on the last focused window if it exists
-        this._clearBorder();
-        this.lastFocusedWindow = null;
-    }
 
     // Start the color.ts cycling using GLib.timeout_add
     _startColorCycle() {
@@ -155,7 +135,7 @@ export default class ActiveBorderExtension extends Extension {
 
     _getStyleRGBA() {
         let rgb = RGBColor.fromHSL(this.currentColor)
-        return `border: 3px solid rgba(${rgb.r}, ${rgb.b}, ${rgb.g}, ${rgb.a}); border-radius: 10px;`
+        return `border: 2px solid rgba(${rgb.r}, ${rgb.b}, ${rgb.g}, ${rgb.a}); border-radius: 10px;`
     }
 
     // Stop the color.ts cycling
@@ -179,5 +159,19 @@ export default class ActiveBorderExtension extends Extension {
         this.borderActor.set_style(this._getStyleRGBA());
         return true; // Continue the timeout
     }
+
+    disable() {
+        console.log("DISABLED PRETTY BORDERS!")
+        // Disconnect the focus signal and remove any existing borders
+        if (this._focusSignal) {
+            global.display.disconnect(this._focusSignal);
+            this._focusSignal = null;
+        }
+
+        // Clear the border on the last focused window if it exists
+        this._clearBorder();
+        this.lastFocusedWindow = null;
+    }
+
 
 }

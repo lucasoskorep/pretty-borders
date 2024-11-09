@@ -1,15 +1,30 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
-    <schema id="org.gnome.shell.extensions.my-extension" path="/org/gnome/shell/extensions/my-extension/">
-        <key name="padding-inner" type="i">
-            <default>8</default>
-            <summary>Inner padding</summary>
-            <description>Padding between windows</description>
+    <schema id="org.gnome.shell.extensions.border-customizer" path="/org/gnome/shell/extensions/border-customizer/">
+        <key name="border-color" type="s">
+            <default>'#FFFFFF'</default>
+            <summary>Border Color</summary>
+            <description>The color of the window borders in hexadecimal format.</description>
         </key>
-        <key name="animate" type="b">
-            <default>true</default>
-            <summary>Animation</summary>
-            <description>Whether to animate window movement/resizing</description>
+        <key name="rainbow" type="b">
+            <default>false</default>
+            <summary>Rainbow Mode</summary>
+            <description>If true, the border color cycles through rainbow colors.</description>
+        </key>
+        <key name="border-thickness" type="i">
+            <default>1</default>
+            <summary>Border Thickness</summary>
+            <description>The thickness of the window borders in pixels (1-10).</description>
+        </key>
+        <key name="border-radius" type="i">
+            <default>1</default>
+            <summary>Border Radius</summary>
+            <description>The radius of the window border corners in pixels (1-20).</description>
+        </key>
+        <key name="color-morph" type="b">
+            <default>false</default>
+            <summary>ColorMorph</summary>
+            <description>If true, enables color morphing effects on borders.</description>
         </key>
     </schema>
 </schemalist>
