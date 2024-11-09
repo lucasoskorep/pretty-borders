@@ -15,6 +15,7 @@
   ],
   "files": [
     "extension.ts",
+    "color.ts"
 //    "prefs.ts"
   ],
 }

@@ -21,6 +21,7 @@ $(NAME).zip: dist/extension.js dist/prefs.js schemas/gschemas.compiled
 	@cp stylesheet.css dist/
 	@(cd dist && zip ../$(NAME).zip -9r .)
 
+
 pack: $(NAME).zip
 
 install: $(NAME).zip
@@ -34,3 +35,5 @@ clean:
 
 test:
 	@dbus-run-session -- gnome-shell --nested --wayland
+
+install-and-test: install test
