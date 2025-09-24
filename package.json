@@ -1,12 +1,12 @@
 {
   "name": "prettyborders",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A TypeScript GNOME Extension for Pretty Borders",
   "type": "module",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/example/my-extension.git"
+    "url": "git+https://gitlab.com/lucasoskorep/prettyborders"
   },
   "author": "Lucas Oskorep <lucas.oskorep@gmail.com>",
   "license": "LGPL-3.0-or-later",
@@ -16,13 +16,30 @@
   "homepage": "https://github.com/example/my-extension#readme",
   "sideEffects": false,
   "devDependencies": {
-    "eslint": "^9.14.0",
-    "eslint-plugin-jsdoc": "^50.4.3",
-    "typescript": "^5.6.3",
-    "@girs/gjs": "^4.0.0-beta.18",
-    "@girs/gnome-shell": "^47.0.0"
+    "@girs/gjs": "4.0.0-beta.38",
+    "@girs/gnome-shell": "49.0.1",
+    "eslint": "^9.27.0",
+    "eslint-plugin-jsdoc": "^50.6.17",
+    "typescript": "^5.8.3"
   },
-
-  "dependencies": {
+  "pnpm": {
+    "overrides": {
+      "@girs/cairo-1.0": "1.0.0-4.0.0-beta.38",
+      "@girs/freetype2-2.0": "2.0.0-4.0.0-beta.38",
+      "@girs/gdk-4.0": "4.0.0-4.0.0-beta.38",
+      "@girs/gdkpixbuf-2.0": "2.0.0-4.0.0-beta.38",
+      "@girs/gio-2.0": "2.86.0-4.0.0-beta.38",
+      "@girs/gjs": "4.0.0-beta.38",
+      "@girs/glib-2.0": "2.86.0-4.0.0-beta.38",
+      "@girs/gmodule-2.0": "2.0.0-4.0.0-beta.38",
+      "@girs/gobject-2.0": "2.86.0-4.0.0-beta.38",
+      "@girs/graphene-1.0": "1.0.0-4.0.0-beta.38",
+      "@girs/gsk-4.0": "4.0.0-4.0.0-beta.38",
+      "@girs/gtk-4.0": "4.20.1-4.0.0-beta.38",
+      "@girs/harfbuzz-0.0": "11.5.0-4.0.0-beta.38",
+      "@girs/mtk-17": "17.0.0-4.0.0-beta.38",
+      "@girs/pango-1.0": "1.57.0-4.0.0-beta.38",
+      "@girs/pangocairo-1.0": "1.0.0-4.0.0-beta.38"
+    }
   }
 }

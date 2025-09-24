@@ -1,20 +1,21 @@
 import GLib from 'gi://GLib';
-import Gio from 'gi://Gio';
 import St from 'gi://St';
 import Meta from 'gi://Meta';
-import cairo from "cairo";
-import Shell from 'gi://Shell';
-import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import {Extension, ExtensionMetadata} from 'resource:///org/gnome/shell/extensions/extension.js';
-import Color, {HSLColor} from "./color.js";
+import {HSLColor} from "./color.js";
 import RGBColor from "./color.js";
+// import Gio from 'gi://Gio';
+// import cairo from "cairo";
+// import Shell from 'gi://Shell';
+// import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
-export default class ActiveBorderExtension extends Extension {
+export default class PrettyBorders extends Extension {
 
     borderActor: St.Widget | null;
     focusWindowSignals: any[];
     lastFocusedWindow: Meta.Window | null;
     _focusSignal: number | null;
+    _windowCreateId : number | null;
 
     // New variables for color.ts cycling
     colorTimeoutId: number | null;
@@ -27,6 +28,7 @@ export default class ActiveBorderExtension extends Extension {
         this.focusWindowSignals = [];
         this.lastFocusedWindow = null;
         this._focusSignal = null;
+        this._windowCreateId = null;
 
         // Initialize color.ts cycling variables
         this.colorTimeoutId = null;
@@ -37,15 +39,17 @@ export default class ActiveBorderExtension extends Extension {
         console.log("STARTING PRETTY BORDERS!")
         // Connect to the focus window signal to track the active window
         this._focusSignal = global.display.connect('notify::focus-window', () => {
-            console.log("Focus Changed")
+            // console.log("Focus Changed")
             this._updateBorder(global.display.focus_window);
         })
         // Set initial border on the current window, if there is one
         this._updateBorder(global.display.focus_window);
+
     }
 
+
     _updateBorder(window: Meta.Window) {
-        console.log("UPDATING THE BORDER")
+        // console.log("UPDATING THE BORDER")
         // Clear the previous border
         this._clearBorder();
         // Set a new border for the currently focused window
@@ -56,7 +60,7 @@ export default class ActiveBorderExtension extends Extension {
     }
 
     _setBorder(window: Meta.Window) {
-        console.log("SETTING THE BORDER")
+        // console.log("SETTING THE BORDER")
         if (!window) return;
 
         const rect = window.get_frame_rect();
@@ -67,10 +71,10 @@ export default class ActiveBorderExtension extends Extension {
             name: 'active-window-border',
             // style_class: 'active-window-border',
             reactive: false,
-            x: rect.x - 2, // Adjust for border width
-            y: rect.y - 2,
-            width: rect.width + 4, // Increased to accommodate border
-            height: rect.height + 4,
+            x: rect.x - 1, // Adjust for border width
+            y: rect.y - 1,
+            width: rect.width + 2, // Increased to accommodate border
+            height: rect.height + 2,
             // Initial style with default color.ts
             // style: `border: 4px solid hsl(${this.hue}, 100%, 50%); border-radius: 5px;`,
             // style: `border: 2px solid rgba(0, 0, 0, 0.5); border-radius: 3px;`
@@ -97,11 +101,12 @@ export default class ActiveBorderExtension extends Extension {
         const rect = window.get_frame_rect();
         if (!rect) return;
 
-        this.borderActor.set_position(rect.x - 2, rect.y - 2);
+        this.borderActor.set_position(rect.x - 1, rect.y - 1);
         this.borderActor.set_size(rect.width + 2, rect.height + 2);
     }
 
     _clearBorder() {
+        // console.log("Clearing Border!")
         // Stop the color.ts cycling
         this._stopColorCycle();
 
@@ -135,7 +140,7 @@ export default class ActiveBorderExtension extends Extension {
 
     _getStyleRGBA() {
         let rgb = RGBColor.fromHSL(this.currentColor)
-        return `border: 2px solid rgba(${rgb.r}, ${rgb.b}, ${rgb.g}, ${rgb.a}); border-radius: 10px;`
+        return `border: 3px solid rgba(${rgb.r}, ${rgb.b}, ${rgb.g}, ${rgb.a}); border-radius: 10px;`
     }
 
     // Stop the color.ts cycling
