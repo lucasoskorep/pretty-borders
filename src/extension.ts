@@ -2,8 +2,8 @@ import GLib from 'gi://GLib';
 import St from 'gi://St';
 import Meta from 'gi://Meta';
 import {Extension, ExtensionMetadata} from 'resource:///org/gnome/shell/extensions/extension.js';
-import {HSLColor} from "./color.js";
-import RGBColor from "./color.js";
+import {HSLColor} from "./utils/color.js";
+import RGBColor from "./utils/color.js";
 // import Gio from 'gi://Gio';
 // import cairo from "cairo";
 // import Shell from 'gi://Shell';
@@ -12,7 +12,7 @@ import RGBColor from "./color.js";
 export default class PrettyBorders extends Extension {
 
     borderActor: St.Widget | null;
-    focusWindowSignals: any[];
+    focusWindowSignals: number[];
     lastFocusedWindow: Meta.Window | null;
     _focusSignal: number | null;
     _windowCreateId : number | null;
@@ -139,7 +139,7 @@ export default class PrettyBorders extends Extension {
 
 
     _getStyleRGBA() {
-        let rgb = RGBColor.fromHSL(this.currentColor)
+        const rgb = RGBColor.fromHSL(this.currentColor)
         return `border: 3px solid rgba(${rgb.r}, ${rgb.b}, ${rgb.g}, ${rgb.a}); border-radius: 10px;`
     }
 

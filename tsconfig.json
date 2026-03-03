@@ -12,10 +12,10 @@
   },
   "include": [
     "ambient.d.ts",
+    "src/**/*.ts"
   ],
-  "files": [
-    "extension.ts",
-    "color.ts",
-    "prefs.ts"
+  "exclude": [
+    "node_modules",
+    "dist"
   ],
 }

@@ -1,6 +1,6 @@
 {
   "name": "prettyborders",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "A TypeScript GNOME Extension for Pretty Borders around your active window",
   "type": "module",
   "private": true,
@@ -15,12 +15,19 @@
   },
   "homepage": "https://github.com/lucasoskorep/pretty-borders#readme",
   "sideEffects": false,
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist/*",
+    "lint": "eslint ."
+  },
   "devDependencies": {
+    "@eslint/js": "^9.27.0",
     "@girs/gjs": "4.0.0-beta.38",
     "@girs/gnome-shell": "49.0.1",
     "eslint": "^9.27.0",
     "eslint-plugin-jsdoc": "^50.6.17",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.56.1"
   },
   "pnpm": {
     "overrides": {
