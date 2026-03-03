@@ -1,7 +1,7 @@
 {
   "name": "prettyborders",
-  "version": "0.2.0",
-  "description": "A TypeScript GNOME Extension for Pretty Borders",
+  "version": "0.2.1",
+  "description": "A TypeScript GNOME Extension for Pretty Borders around your active window",
   "type": "module",
   "private": true,
   "repository": {
@@ -9,11 +9,11 @@
     "url": "git+https://gitlab.com/lucasoskorep/prettyborders"
   },
   "author": "Lucas Oskorep <lucas.oskorep@gmail.com>",
-  "license": "LGPL-3.0-or-later",
+  "license": "GPL-3.0-only",
   "bugs": {
-    "url": "https://github.com/example/my-extension/issues"
+    "url": "https://github.com/lucasoskorep/pretty-borders/issues"
   },
-  "homepage": "https://github.com/example/my-extension#readme",
+  "homepage": "https://github.com/lucasoskorep/pretty-borders#readme",
   "sideEffects": false,
   "devDependencies": {
     "@girs/gjs": "4.0.0-beta.38",
