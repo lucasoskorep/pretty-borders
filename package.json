@@ -1,6 +1,6 @@
 {
   "name": "prettyborders",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "A TypeScript GNOME Extension for Pretty Borders around your active window",
   "type": "module",
   "private": true,
@@ -21,32 +21,19 @@
     "lint": "eslint ."
   },
   "devDependencies": {
-    "@eslint/js": "^9.27.0",
-    "@girs/gjs": "4.0.0-beta.38",
-    "@girs/gnome-shell": "49.0.1",
-    "eslint": "^9.27.0",
-    "eslint-plugin-jsdoc": "^50.6.17",
-    "typescript": "^5.8.3",
-    "typescript-eslint": "^8.56.1"
-  },
-  "pnpm": {
-    "overrides": {
-      "@girs/cairo-1.0": "1.0.0-4.0.0-beta.38",
-      "@girs/freetype2-2.0": "2.0.0-4.0.0-beta.38",
-      "@girs/gdk-4.0": "4.0.0-4.0.0-beta.38",
-      "@girs/gdkpixbuf-2.0": "2.0.0-4.0.0-beta.38",
-      "@girs/gio-2.0": "2.86.0-4.0.0-beta.38",
-      "@girs/gjs": "4.0.0-beta.38",
-      "@girs/glib-2.0": "2.86.0-4.0.0-beta.38",
-      "@girs/gmodule-2.0": "2.0.0-4.0.0-beta.38",
-      "@girs/gobject-2.0": "2.86.0-4.0.0-beta.38",
-      "@girs/graphene-1.0": "1.0.0-4.0.0-beta.38",
-      "@girs/gsk-4.0": "4.0.0-4.0.0-beta.38",
-      "@girs/gtk-4.0": "4.20.1-4.0.0-beta.38",
-      "@girs/harfbuzz-0.0": "11.5.0-4.0.0-beta.38",
-      "@girs/mtk-17": "17.0.0-4.0.0-beta.38",
-      "@girs/pango-1.0": "1.57.0-4.0.0-beta.38",
-      "@girs/pangocairo-1.0": "1.0.0-4.0.0-beta.38"
-    }
+    "@eslint/js": "^10.0.1",
+    "@girs/adw-1": "^5.5.0",
+    "@girs/gio-2.0": "^5.5.0",
+    "@girs/gjs": "^5.5.0",
+    "@girs/glib-2.0": "^5.5.0",
+    "@girs/gobject-2.0": "^5.5.0",
+    "@girs/gtk-4.0": "^5.5.0",
+    "@girs/meta-51": "^5.5.0",
+    "@girs/shell-51": "^5.5.0",
+    "@girs/st-51": "^5.5.0",
+    "eslint": "^10.12.0",
+    "eslint-plugin-jsdoc": "^65.3.4",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.71.2"
   }
 }
