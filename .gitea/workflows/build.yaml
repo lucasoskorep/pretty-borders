@@ -12,16 +12,20 @@ jobs:
   build:
     runs-on: archlinux
     container:
-      image: gitea.chaosdev.gay/lucasoskorep/mise-node:2026.10.19
+      image: node:25
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      - name: Install tools
+      - name: Install pnpm via mise
         run: |
+          curl -fsSL https://mise.run | sh
+          export PATH="$HOME/.local/bin:$PATH"
           mise trust
-          mise install
+          mise install pnpm
+          mise reshim
+          echo "$HOME/.local/share/mise/shims" >> "$GITHUB_PATH"
 
       - name: Install just
         run: |
@@ -52,16 +56,11 @@ jobs:
     environment:
       name: production
     container:
-      image: gitea.chaosdev.gay/lucasoskorep/mise-node:2026.10.19
+      image: node:25
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
-
-      - name: Install tools
-        run: |
-          mise trust
-          mise install
 
       - name: Download artifact
         uses: actions/download-artifact@v3
